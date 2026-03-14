@@ -1,0 +1,220 @@
+body{
+    background-color: #000;
+    color: #ccc !important;
+}
+
+.navbar{
+    background:rgba(0,0,0,0.9)!important;
+    border-bottom:1px solid rgba(255,215,0,.3);
+    backdrop-filter:blur(6px);
+    }
+    
+    .navbar h5{
+    color:gold;
+    font-weight:600;
+    letter-spacing:1px;
+    }
+    
+    .nav-link{
+    color:#ccc!important;
+    font-weight:500;
+    margin-left:10px;
+    transition:.3s;
+    }
+    
+    .nav-link:hover{
+    color:gold!important;
+    }
+
+    .navbar a[href="cart.html"]{
+        position:relative;
+        display:inline-block;
+        }
+        .cart-badge{
+            position:absolute;
+            top:-6px;
+            right:-10px;
+            background:red;
+            color:white;
+            font-size:12px;
+            padding:3px 6px;
+            border-radius:50%;
+            line-height:1;
+            }
+    @media (max-width:768px){
+
+        #navmain{
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        gap:2px; 
+        }
+        
+        .navbar a[href="cart.html"]{
+        position:static !important;
+        }
+        
+        
+        
+        }
+
+    .banner{
+        height:95vh;
+        display:flex;
+        align-items:center;
+        }
+        
+        .banner h1{
+        font-size:55px;
+        font-weight:700;
+        letter-spacing:2px;
+        }
+        
+        .banner p{
+        color:#ddd;
+        font-size:18px;
+        }
+        
+        @media(max-width:768px){
+        
+        .banner h1{
+        font-size:36px;
+        }
+        
+        .banner{
+        text-align:center;
+        }
+        }
+
+
+
+
+        .card{
+            background:#111;
+            border:none;
+            border-radius:15px;
+            overflow:hidden;
+            transition:.3s;
+            box-shadow:0 0 20px rgba(0,0,0,.6);
+            }
+            
+            .card:hover{
+            transform:translateY(-8px);
+            box-shadow:0 10px 30px rgba(255,215,0,.2);
+            }
+            
+            .card img{
+            height:240px;
+            object-fit:cover;
+            border-radius:10px;
+            }
+            
+            .card h5{
+            font-weight:600;
+            margin-top:10px;
+            color: #ccc;
+            }
+            
+            .card p{
+            color:gold;
+            font-weight:600;
+            }
+            
+            .card button{
+            border-radius:30px;
+            padding:6px 20px;
+            font-weight:500;
+            }
+            .card button:hover{
+                background-color: #bbb;
+                color: black;
+            }
+
+
+
+            .feedback-card{
+                background:#111;
+                border-radius:15px;
+                padding:25px;
+                box-shadow:0 0 20px rgba(255,215,0,.15);
+                }
+                
+                .form-control{
+                background:#000;
+                color:#fff;
+                border:1px solid #333;
+                border-radius:8px;
+                }
+                
+                .form-control:focus{
+                background:#000;
+                color:#fff;
+                border-color:gold;
+                box-shadow:0 0 5px gold;
+                }
+
+
+
+                .btn-gold{
+                    background:linear-gradient(45deg,gold,#f7c600);
+                    color:#000;
+                    font-weight:600;
+                    border:none;
+                    padding:10px 25px;
+                    border-radius:30px;
+                    transition:.3s;
+                    }
+                    
+                    .btn-gold:hover{
+                    transform:translateY(-2px);
+                    box-shadow:0 6px 15px rgba(255,215,0,.4);
+                    }
+
+
+
+                    .footer{
+                        background:#050505;
+                        border-top:1px solid #222;
+                        color:#bbb;
+                        }
+                        
+                        .footer h4,
+                        .footer h5{
+                        color:gold;
+                        margin-bottom:15px;
+                        }
+                        
+                        .footer a{
+                        color:#bbb;
+                        text-decoration:none;
+                        display:block;
+                        margin-bottom:6px;
+                        }
+                        
+                        .footer a:hover{
+                        color:gold;
+                        }
+                        
+                        .text-gold{
+                        color:gold;
+                        }
+
+
+                        @media(max-width:768px){
+
+                            #home{
+                            height:auto;
+                            padding:120px 0;
+                            }
+                            
+                            .card img{
+                            height:200px;
+                            }
+                            
+                            .navbar h5{
+                            font-size:18px;
+                            }
+                            
+                            }
+
+                            

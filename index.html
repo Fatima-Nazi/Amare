@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amare Perfume</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+<div class="container position-relative">
+
+<img src="img/Amare-perfume logo.png" width="70">
+
+<div id="navmain" class="d-flex align-items-center justify-content-center">
+
+<a href="cart.html" class="text-white fs-4 position-absolute end-0">
+🛒 <span id="cart-count" class="cart-badge d-none">0</span>
+</a>
+
+<button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav">
+<span class="navbar-toggler-icon"></span>
+</button>
+
+</div>
+
+<div class="collapse navbar-collapse" id="nav">
+<ul class="navbar-nav ms-auto me-md-4">
+<li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+<li class="nav-item"><a class="nav-link" href="#products">Products</a></li>
+<li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+<li class="nav-item"><a class="nav-link" href="#feedback">Feedback</a></li>
+</ul>
+</div>
+
+</div>
+</nav>
+
+
+<!-- HOME -->
+<section id="home" class="banner d-flex align-items-center"
+style="background:linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,.9)), url('img/Silderpic.jpeg') center/cover no-repeat;">
+
+<div class="container mt-5">
+<h1 class="display-4 fw-bold">Amare Fragrance</h1>
+<p class="lead">Experience elegance in every spray.</p>
+<a href="#products" class="btn btn-gold btn-lg">Shop Now</a>
+</div>
+
+</section>
+
+
+<!-- PRODUCTS -->
+<section id="products" class="py-5">
+<div class="container">
+
+<h2 class="text-center mb-5">Our Luxury Collection</h2>
+
+<div id="cards" class="row g-4"></div>
+
+</div>
+</section>
+
+
+<script>
+
+const perfumes=[
+["Azure Elixir",1799,"img/Azure Elixir.jpeg"],
+["Midnight Alpha",1899,"img/Midnight Alpha.jpeg"],
+["Velvet Desire",1899,"img/Velvet Desire.jpeg"],
+["Azure Elixir Tester",399,"img/Azuretester.jpeg"],
+["Midnight Alpha Tester",399,"img/Midnighttesters.jpeg"],
+["Velvet Desire Tester",399,"img/Velvettesters.jpeg"]
+];
+
+</script>
+
+
+<!-- ABOUT -->
+<section id="about" class="py-5 about-section">
+
+<div class="container">
+
+<div class="row align-items-center">
+
+<h2 style="text-align:center;">About Amare Perfume</h2>
+
+<div class="col-md-6">
+<img src="img/Midnight Alpha.jpeg" class="img-fluid rounded shadow">
+</div>
+
+<div class="col-md-6">
+
+<h2>Midnight Alpha</h2>
+
+Midnight Alpha is the signature perfume of our collection, designed for bold and sophisticated personalities. With its deep and captivating aroma, it offers an impressive 6–7 hours of long-lasting freshness, making every moment unforgettable. <br> <br> Crafted with a perfect blend of rich and elegant notes, this fragrance creates a powerful presence wherever you go. Its smooth and refined scent reflects confidence, style, and timeless charm, making Midnight Alpha the perfect choice for those who want to stand out with elegance. <br> <br> Subtle hints of exotic woods and delicate florals intertwine to awaken the senses, leaving a trail of allure and sophistication. Every spray tells a story of luxury, passion, and individuality—because true elegance is remembered long after you leave the room. </p>
+</div>
+</div>
+</div>
+</section>
+
+
+
+<!-- FEEDBACK -->
+<section id="feedback" class="py-5">
+
+<div class="container">
+
+<div class="col-md-6 mx-auto feedback-card p-4">
+
+<h3 class="text-center mb-3" style="color:gold">💬 Feedback</h3>
+
+<div id="thankMsg" class="alert alert-success text-center d-none">
+Thank you! Your feedback has been prepared for WhatsApp.
+</div>
+
+<form id="feedbackForm" onsubmit="sendWhatsApp(); return false;">
+
+<div class="mb-3">
+<label>Name</label>
+<input 
+type="text"
+id="name" 
+class="form-control" 
+required 
+pattern="[A-Za-z\s]{3,30}" 
+title="Name should contain only letters and spaces (3-30 characters)">
+</div>
+
+<div class="mb-3">
+<label>Phone</label>
+<input 
+type="tel"
+id="phone" 
+class="form-control" 
+required 
+pattern="[0-9]{11}" 
+title="Enter valid 11 digit phone number (e.g. 03001234567)">
+</div>
+
+<div class="mb-3">
+<label>Feedback</label>
+<textarea 
+id="fb" 
+class="form-control" 
+rows="4" 
+required 
+pattern=".{10,200}" 
+title="Feedback must be between 10 and 200 characters">
+</textarea>
+</div>
+
+<button type="submit" class="btn btn-gold w-100">Send Feedback</button>
+
+</form>
+
+</div>
+</div>
+</section>
+
+
+
+<footer class="footer mt-5 pt-5 pb-3">
+
+<div class="container">
+
+<div class="row text-center text-md-start">
+
+<div class="col-md-4 mb-4">
+<h4 class="text-gold">Amare Perfume</h4>
+<p>
+Experience luxury fragrances crafted for elegance and confidence.
+</p>
+</div>
+
+<div class="col-md-4 mb-4">
+<h5 class="text-gold">Quick Links</h5>
+<ul class="list-unstyled">
+<li><a href="#home">Home</a></li>
+<li><a href="#products">Products</a></li>
+<li><a href="#about">About</a></li>
+<li><a href="#feedback">Feedback</a></li>
+</ul>
+</div>
+
+<div class="col-md-4 mb-4">
+<h5 class="text-gold">Contact</h5>
+<p>📞 +923313077774</p>
+<p>📍 Karachi, Pakistan</p>
+<p>📧 amarefragnance@gmail.com</p>
+</div>
+
+</div>
+
+<hr>
+
+<div class="text-center">
+<p class="mb-0">© 2026 Amare Perfume | All Rights Reserved</p>
+</div>
+
+</div>
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+
+
+// CART SYSTEM
+
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
+const cartBadge = document.getElementById('cart-count');
+
+function updateCart(){
+
+if(cart.length){
+
+cartBadge.classList.remove('d-none');
+cartBadge.innerText = cart.length;
+
+}else{
+
+cartBadge.classList.add('d-none');
+
+}
+
+}
+
+
+function addToCart(name,price){
+
+cart.push({n:name,p:price});
+localStorage.setItem('cart',JSON.stringify(cart));
+
+updateCart();
+
+alert(name+" added to cart!");
+
+}
+
+
+const cards=document.getElementById("cards");
+
+perfumes.forEach(p=>{
+
+cards.innerHTML+=`
+
+<div class="col-md-6 col-lg-4">
+
+<div class="card text-center p-2">
+
+<img src="${p[2]}" class="img-fluid">
+
+<h5 class="mt-2">${p[0]}</h5>
+
+<p>${p[1]}</p>
+
+<button class="btn btn-dark" onclick="addToCart('${p[0]}',${p[1]})">Add</button>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+updateCart();
+
+
+
+// WHATSAPP FEEDBACK
+
+function sendWhatsApp(){
+
+const userName=document.getElementById("name").value.trim();
+const userPhone=document.getElementById("phone").value.trim();
+const userFb=document.getElementById("fb").value.trim();
+
+if(!userName || !userPhone || !userFb){
+
+alert("Please fill all fields!");
+return;
+
+}
+
+let msg=`New Feedback%0AName: ${encodeURIComponent(userName)}%0APhone: ${encodeURIComponent(userPhone)}%0AFeedback: ${encodeURIComponent(userFb)}`;
+
+window.open(`https://wa.me/923313077774?text=${msg}`,'_blank');
+
+
+// FORM RESET
+
+document.getElementById("feedbackForm").reset();
+
+
+// THANK YOU MESSAGE
+
+document.getElementById("thankMsg").classList.remove("d-none");
+
+}
+
+</script>
+
+</body>
+</html>

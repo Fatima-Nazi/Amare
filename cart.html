@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cart - Amare Perfume</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<nav class="navbar navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand" href="index.html">Amare Perfume</a>
+  </div>
+</nav>
+
+<section class="py-5">
+  <div class="container">
+    <h2 class="text-center mb-4">Your Cart</h2>
+
+    <div class="mb-4">
+      <input id="cust-name" type="text" class="form-control mb-2" placeholder="Enter Your Name" required>
+      <input id="cust-addr" type="text" class="form-control" placeholder="Enter Your Address" required>
+    </div>
+
+    <div id="cart-items"></div>
+    <h4 class="text-end mt-4" id="total"></h4>
+
+    <div class="text-end mt-3">
+      <button class="btn btn-success" onclick="orderAll()">Order All</button>
+    </div>
+  </div>
+</section>
+
+<script>
+
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+const container = document.getElementById("cart-items");
+
+function updateCartAfterOrder() {
+
+  let singleOrder = JSON.parse(localStorage.getItem("singleOrder")) || null;
+  let fullOrder = JSON.parse(localStorage.getItem("fullOrder")) || null;
+
+  if(singleOrder){
+    cart = cart.filter(item => !(item.n === singleOrder.n && item.p === singleOrder.p));
+    localStorage.removeItem("singleOrder");
+  }
+
+  if(fullOrder){
+    cart = [];
+    localStorage.removeItem("fullOrder");
+  }
+
+  localStorage.setItem("cart", JSON.stringify(cart));
+}
+
+function displayCart(){
+
+  container.innerHTML="";
+  let total = 0;
+
+  if(cart.length === 0){
+    container.innerHTML="<div class='alert alert-warning text-center'>Your cart is empty</div>";
+    document.getElementById("total").innerText="";
+    return;
+  }
+
+cart.forEach((item,index)=>{
+
+if(!item.q) item.q = 1;
+
+total += item.p * item.q;
+
+container.innerHTML+=`
+
+<div class="card border-0 shadow-sm mb-3">
+
+<div class="card-body">
+
+<div class="row align-items-center">
+
+<div class="col-md-4">
+
+<h5 class="mb-1 fw-semibold">${item.n}</h5>
+
+<p class="text-success fw-bold mb-0">Rs ${item.p}</p>
+
+</div>
+
+
+<div class="col-md-3 text-center">
+
+<div class="d-inline-flex align-items-center border rounded-pill px-2">
+
+<button class="btn btn-light btn-sm" onclick="decreaseQty(${index})">−</button>
+
+<span class="px-3 fw-bold">${item.q}</span>
+
+<button class="btn btn-light btn-sm" onclick="increaseQty(${index})">+</button>
+
+</div>
+
+</div>
+
+
+<div class="col-md-5 text-end">
+
+<button class="btn btn-outline-danger btn-sm me-2"
+onclick="removeItem(${index})">
+Remove
+</button>
+
+<button class="btn btn-success btn-sm"
+onclick="orderSingle(${index})">
+Order
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+document.getElementById("total").innerText="Total: Rs "+total;
+
+}
+
+function increaseQty(index){
+
+cart[index].q++;
+
+localStorage.setItem("cart", JSON.stringify(cart));
+
+displayCart();
+
+}
+
+function decreaseQty(index){
+
+if(cart[index].q > 1){
+
+cart[index].q--;
+
+localStorage.setItem("cart", JSON.stringify(cart));
+
+displayCart();
+
+}
+
+}
+
+function removeItem(index){
+
+cart.splice(index,1);
+
+localStorage.setItem("cart", JSON.stringify(cart));
+
+displayCart();
+
+}
+
+function orderSingle(index){
+
+const item = cart[index];
+
+if(!item) return;
+
+const name = document.getElementById("cust-name").value.trim();
+
+const addr = document.getElementById("cust-addr").value.trim();
+
+if(!name || !addr){
+
+alert("Please enter Name and Address!");
+
+return;
+
+}
+
+localStorage.setItem("singleOrder", JSON.stringify(item));
+
+let msg=`Order%0AName: ${encodeURIComponent(name)}%0AAddress: ${encodeURIComponent(addr)}%0AProduct: ${encodeURIComponent(item.n)}%0AQuantity: ${item.q}%0APrice: Rs ${item.p * item.q}`;
+
+window.open(`https://wa.me/923313077774?text=${msg}`,'_blank');
+
+removeItem(index);
+
+setTimeout(function(){
+window.location.href="index.html";
+},1000);
+
+}
+
+function orderAll(){
+
+if(cart.length===0) return;
+
+const name = document.getElementById("cust-name").value.trim();
+
+const addr = document.getElementById("cust-addr").value.trim();
+
+if(!name || !addr){
+
+alert("Please enter Name and Address!");
+
+return;
+
+}
+
+localStorage.setItem("fullOrder", JSON.stringify(cart));
+
+let msg = `Order%0AName: ${encodeURIComponent(name)}%0AAddress: ${encodeURIComponent(addr)}%0A`;
+
+cart.forEach(it=> msg += `Product: ${it.n}%0AQuantity: ${it.q}%0APrice: Rs ${it.p * it.q}%0A`);
+
+window.open(`https://wa.me/923313077774?text=${msg}`,'_blank');
+
+cart = [];
+
+localStorage.setItem("cart", JSON.stringify(cart));
+
+displayCart();
+
+setTimeout(function(){
+window.location.href="index.html";
+},1000);
+
+}
+
+updateCartAfterOrder();
+
+displayCart();
+
+</script>
+
+</body>
+</html>
+```
