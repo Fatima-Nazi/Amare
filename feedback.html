@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback - Amare Perfume</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+
+        /* Footer (Black Background, White Text) */
+        .footer {
+            background-color: #000; /* Black */
+            color: #fff;
+            padding: 50px 20px 20px;
+        }
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+        }
+        .footer-col h4 {
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 20px;
+            color: #fff; /* White */
+        }
+        .footer-col p, .footer-col a {
+            color: #ccc; /* Light Grey for readability */
+            font-size: 14px;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+            transition: color 0.3s;
+        }
+        .footer-col a:hover { color: #d4a373; }
+        .footer-bottom {
+            text-align: center;
+            margin-top: 40px;
+            border-top: 1px solid #333;
+            padding-top: 20px;
+            font-size: 13px;
+            color: #888;
+        }
+        .social-icons a {
+            display: inline-block;
+            width: 35px; height: 35px;
+            line-height: 35px;
+            text-align: center;
+            border: 1px solid #444;
+            border-radius: 50%;
+            color: #fff;
+            margin-right: 5px;
+            transition: 0.3s;
+        }
+        .social-icons a:hover {
+            background: #d4a373;
+            border-color: #d4a373;
+            color: #fff;
+        }
+
+/* Basic Reset */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f9f9f9; /* Slight grey background for contrast */
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header (Black) */
+        .header {
+            background: #000;
+            box-shadow: 0 2px 10px rgba(255,255,255,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo h1 { 
+            font-family: 'Playfair Display', serif;
+            font-size: 28px; 
+            font-weight: 700; 
+            color: #fff;
+            margin: 0; 
+            cursor: pointer; 
+        }
+        .nav-links a { 
+            text-decoration: none; 
+            color: #fff;
+            margin: 0 15px; 
+            font-weight: 500; 
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover { color: #d4a373; }
+
+        /* Main Content Area */
+        .main-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+        }
+
+        /* Feedback Form Card */
+        .feedback-card {
+            background: #fff;
+            width: 100%;
+            max-width: 600px;
+            padding: 50px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            text-align: center;
+            border-top: 5px solid #000;
+        }
+
+        .feedback-icon {
+            width: 80px;
+            height: 80px;
+            background: #f0f0f0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 35px;
+            color: #333;
+        }
+
+        .feedback-card h2 {
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 10px;
+            color: #222;
+            font-size: 32px;
+        }
+
+        .feedback-card p {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 15px;
+        }
+
+        /* Form Styling */
+        .form-control {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            font-size: 14px;
+            margin-bottom: 20px;
+            transition: 0.3s;
+        }
+        .form-control:focus {
+            border-color: #000;
+            box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-submit {
+            width: 100%;
+            background: #000;
+            color: #fff;
+            border: none;
+            padding: 15px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .btn-submit:hover {
+            background: #d4a373;
+        }
+
+        /* Footer (Black) */
+        .footer {
+            background-color: #000;
+            color: #888;
+            text-align: center;
+            padding: 20px;
+            margin-top: auto;
+            font-size: 13px;
+        }
+
+        /* Responsive */
+        @media (max-width: 576px) {
+            .feedback-card { padding: 30px 20px; }
+        }
+
+        
+        /* Header (Black Background, White Text) */
+        .header {
+            background: #000; /* Black */
+            box-shadow: 0 2px 10px rgba(255,255,255,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo h1 { 
+            font-family: 'Playfair Display', serif;
+            font-size: 28px; 
+            font-weight: 700; 
+            color: #fff; /* White */
+            margin: 0; 
+            cursor: pointer; 
+        }
+        .nav-links a { 
+            text-decoration: none; 
+            color: #fff; /* White */
+            margin: 0 15px; 
+            font-weight: 500; 
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover { color: #d4a373; }
+        
+        /* Cart Icon */
+        .cart-icon-btn {
+            background: none; border: none; font-size: 20px; cursor: pointer; position: relative; color: #fff;
+        }
+        .cart-count-badge {
+            position: absolute; top: -5px; right: -10px; 
+            background: #d4a373; color: white; 
+            font-size: 10px; width: 18px; height: 18px; 
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+        }
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body{
+    background:#fff;
+}
+
+/* NAVBAR */
+.navbar{
+    width:100%;
+    background:#000;
+    padding: 12px 40px;
+    position: sticky;
+    top:0;
+    z-index:999;
+}
+
+.nav-container{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+/* Logo */
+.logo img{
+    height:55px;
+}
+
+/* Menu Links */
+.nav-links{
+    list-style:none;
+    display:flex;
+    gap:40px;
+}
+
+.nav-links li a{
+    color:#fff;
+    text-decoration:none;
+    font-size:18px;
+    font-weight:500;
+    transition:0.3s;
+}
+
+.nav-links li a:hover{
+    color:#d4af37; /* gold hover */
+}
+
+/* Cart */
+.cart{
+    position:relative;
+    color:#fff;
+    font-size:22px;
+    cursor:pointer;
+}
+
+.cart-count{
+    position:absolute;
+    top:-8px;
+    right:-10px;
+    background:#d4af37;
+    color:#000;
+    font-size:12px;
+    padding:2px 6px;
+    border-radius:50%;
+    font-weight:600;
+}
+
+/* Responsive */
+@media(max-width:900px){
+    .nav-links{
+        display:none;
+    }
+}
+
+.logo img{
+    margin-bottom: 5px;
+}
+    </style>
+</head>
+<body>
+
+    <!-- Header --><header class="header">
+        <div class="header-container">
+            <div class="logo"><img src="img/logo2.png" alt="" width="70px" height="70px"></div>
+            <nav class="nav-links d-none d-md-block">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="malefemale.html">Male/Female</a>
+                   <a href="attar.html">Oud</a>
+                <a href="feedback.html">Feedback</a>
+            </nav>
+            <div class="header-icons">
+                <button class="cart-icon-btn" onclick="toggleCart()">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span class="cart-count-badge" id="header-cart-count">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+    <!-- Feedback Section -->
+    <div class="main-content">
+        <div class="feedback-card">
+            <div class="feedback-icon">
+                <i class="fas fa-comment-dots"></i>
+            </div>
+            <h2>Send Us Feedback</h2>
+            <p>We would love to hear your thoughts, suggestions, or concerns.</p>
+
+            <form onsubmit="sendFeedback(event)">
+                <input type="text" id="fb-name" class="form-control" placeholder="Your Name" required>
+                
+                <input type="email" id="fb-email" class="form-control" placeholder="Your Email (Optional)">
+                
+                <textarea id="fb-msg" class="form-control" rows="5" placeholder="Write your feedback here..." required></textarea>
+                
+                <button type="submit" class="btn-submit">
+                    <i class="fab fa-whatsapp"></i> Send via WhatsApp
+                </button>
+            </form>
+        </div>
+    </div>
+<!-- Footer (Black) -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-col">
+         <img src="img/logo2.png" alt="" width="90px" height="90px">
+                <p>Your destination for premium fragrances. We believe in quality and authenticity.</p>
+                <div class="social-icons mt-3">
+            
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="malefemale.html">Male/Female</a>
+                <a href="attar.html">Oud</a>
+                <a href="feedback.html">Feedback</a>
+            </div>
+            <div class="footer-col">
+                <h4>Customer Service</h4>
+                <a href="#">Shipping Policy</a>
+            </div>
+            <div class="footer-col">
+                <h4>Contact Info</h4>
+                <p><i class="fas fa-map-marker-alt me-2"></i> Karachi, Pakistan</p>
+                <p><i class="fas fa-phone me-2"></i> +92 331 3077774</p>
+                <p><i class="fas fa-envelope me-2"></i> info@amare.pk</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2023 Amare Perfume. All Rights Reserved.
+        </div>
+    </footer>
+
+    <!-- Script -->
+    <script>
+        function sendFeedback(e) {
+            e.preventDefault(); // Prevent page reload
+
+            const name = document.getElementById("fb-name").value.trim();
+            const email = document.getElementById("fb-email").value.trim();
+            const msg = document.getElementById("fb-msg").value.trim();
+
+            if (!name || !msg) {
+                alert("Please fill in your name and message.");
+                return;
+            }
+
+            // Construct Message
+            let text = `*Website Feedback* 📝%0A--------------------------%0A`;
+            text += `*Name:* ${encodeURIComponent(name)}%0A`;
+            if(email) text += `*Email:* ${encodeURIComponent(email)}%0A`;
+            text += `--------------------------%0A*Message:*%0A${encodeURIComponent(msg)}`;
+
+            // WhatsApp Number (Apna number yahan likhein)
+            window.open(`https://wa.me/923313077774?text=${text}`, '_blank');
+
+            // Optional: Clear form
+            document.getElementById("fb-name").value = "";
+            document.getElementById("fb-email").value = "";
+            document.getElementById("fb-msg").value = "";
+        }
+    </script>
+</body>
+</html>
