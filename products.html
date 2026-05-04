@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Products — Amare Perfume</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .cursor-dot  { width:8px; height:8px; background:var(--gold); border-radius:50%; position:fixed; pointer-events:none; z-index:99999; transform:translate(-50%,-50%); transition:width .2s,height .2s; }
+    .cursor-ring { width:36px; height:36px; border:1px solid rgba(201,168,76,.45); border-radius:50%; position:fixed; pointer-events:none; z-index:99998; transform:translate(-50%,-50%); transition:width .22s,height .22s,border-color .22s; }
+    .page-transition { position:fixed; inset:0; background:var(--black); z-index:9999; transform:scaleY(0); transform-origin:bottom; transition:transform .5s cubic-bezier(.25,.46,.45,.94); }
+    .page-transition.entering { transform:scaleY(1); transform-origin:bottom; }
+    .page-transition.leaving  { transform:scaleY(0); transform-origin:top; }
+
+    .products-page { padding:var(--section-pad) 0; background:var(--warm-white); }
+    .product-page-grid { display:grid; grid-template-columns: 1.1fr 0.9fr; gap:70px; align-items:start; }
+    .product-nav { position:sticky; top:170px; }
+    .product-nav__card { background:var(--white); border:1px solid var(--border-light); box-shadow:var(--shadow-md); padding:28px; }
+    .product-nav__title { font-family:var(--font-display); font-size:28px; font-weight:300; font-style:italic; margin-bottom:18px; }
+    .product-nav a { display:flex; justify-content:space-between; gap:16px; padding:12px 0; border-bottom:1px solid var(--border-light); color:var(--text-secondary); transition:color var(--dur-fast); }
+    .product-nav a:last-child { border-bottom:none; }
+    .product-nav a:hover { color:var(--gold); }
+    .product-nav__pill { font-size:12px; letter-spacing:0.14em; text-transform:uppercase; color:var(--text-muted); }
+
+    .product-detail { background:var(--white); border:1px solid var(--border-light); box-shadow:var(--shadow-md); overflow:hidden; }
+    .product-detail__hero { display:grid; grid-template-columns: 280px 1fr; gap:28px; padding:28px; border-bottom:1px solid var(--border-light); }
+    .product-detail__img { width:280px; height:360px; object-fit:cover; background:var(--cream); border:1px solid var(--border-light); }
+    .product-detail__name { font-family:var(--font-display); font-size:44px; font-weight:300; font-style:italic; line-height:1.05; margin-bottom:10px; }
+    .product-detail__meta { display:flex; flex-wrap:wrap; gap:10px; margin:14px 0 18px; }
+    .tag { display:inline-flex; align-items:center; gap:10px; padding:7px 14px; border:1px solid var(--border-light); background:var(--ivory); color:var(--text-secondary); font-size:12px; letter-spacing:0.14em; text-transform:uppercase; }
+
+    .product-detail__body { padding:26px 28px 30px; }
+    .notes { display:grid; grid-template-columns:1fr; gap:14px; margin-top:18px; }
+    .note-row { display:grid; grid-template-columns: 140px 1fr; gap:18px; padding:14px 16px; border:1px solid var(--border-light); background:var(--warm-white); }
+    .note-row__label { font-size:12px; letter-spacing:0.18em; text-transform:uppercase; color:var(--text-muted); }
+
+    .product-detail__actions { padding:22px 28px 28px; border-top:1px solid var(--border-light); display:flex; gap:14px; flex-wrap:wrap; }
+    .btn--ghost { background:transparent; border:1px solid rgba(0,0,0,0.14); color:var(--text-primary); }
+    .btn--ghost::before { background:var(--gold-dim); }
+
+    @media (max-width: 1100px) {
+      .product-page-grid { grid-template-columns:1fr; }
+      .product-nav { position:relative; top:auto; }
+    }
+    @media (max-width: 700px) {
+      .product-detail__hero { grid-template-columns:1fr; }
+      .product-detail__img { width:100%; height:360px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page-transition" id="page-transition"></div>
+  <div class="overlay" id="overlay" onclick="toggleCart()"></div>
+
+  <nav class="navbar" id="navbar">
+    <a href="index.html" class="navbar__logo" aria-label="Amare Home">
+      <img src="img/logo2.png" alt="Amare" class="navbar__logo-img">
+    </a>
+    <ul class="navbar__links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="malefemale.html">Collection</a></li>
+      <li><a href="attar.html">Attar</a></li>
+      <li><a href="feedback.html">Feedback</a></li>
+    </ul>
+    <div class="navbar__right">
+      <button class="navbar__cart" onclick="toggleCart()">
+        <i class="fas fa-shopping-bag"></i>
+        <span class="cart-count" id="header-cart-count">0</span>
+      </button>
+      <button class="navbar__hamburger" id="hamburger"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <nav class="mobile-nav" id="mobile-nav">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="malefemale.html">Collection</a>
+    <a href="attar.html">Attar</a>
+    <a href="feedback.html">Feedback</a>
+  </nav>
+
+  <section class="page-banner">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a>
+      <i class="fas fa-chevron-right"></i>
+      <span>Products</span>
+    </div>
+    <h1>All Products</h1>
+    <p>Explore every signature — notes, vibe, and legacy</p>
+  </section>
+
+  <section class="products-page">
+    <div class="container">
+      <div class="product-page-grid">
+
+        <div>
+          <article class="product-detail" id="oud-313-noir" data-reveal>
+            <div class="product-detail__hero">
+              <img src="img/Oud313niour.png" alt="Oud 313 Noir" class="product-detail__img" loading="lazy">
+              <div>
+                <div class="product-detail__name">Oud 313 Noir</div>
+                <div class="product-detail__meta">
+                  <span class="tag">Vibe: Dark • Romantic • Intense</span>
+                  <span class="tag">Best For: Night wear, special occasions</span>
+                  <span class="tag">Longevity: Extra long-lasting</span>
+                </div>
+                <p>Oud 313 Noir is a darker, more intense interpretation of oud — blended beautifully with the richness of rose. This fragrance is deep, seductive, and unforgettable.</p>
+              </div>
+            </div>
+            <div class="product-detail__body">
+              <p>It opens with a soft yet dark floral touch of rose, followed by a smoky oud heart that feels rich and mysterious. The base is warm, musky, and long-lasting, creating a powerful and elegant scent trail.</p>
+              <div class="notes">
+                <div class="note-row"><div class="note-row__label">Top Notes</div><div>Rose, Spices</div></div>
+                <div class="note-row"><div class="note-row__label">Middle Notes</div><div>Oud, Floral Notes</div></div>
+                <div class="note-row"><div class="note-row__label">Base Notes</div><div>Amber, Musk, Woody Notes</div></div>
+              </div>
+            </div>
+            <div class="product-detail__actions">
+              <button class="btn btn--gold" onclick="addToCart('OUD 313 NOIR',2199,'img/Oud313niour.png')"><span>Add to Cart</span></button>
+              <button class="btn btn--ghost" onclick="window.scrollTo({top:0, behavior:'smooth'})"><span>Back to Top</span></button>
+            </div>
+          </article>
+
+          <article class="product-detail" id="oud-313" data-reveal style="margin-top:28px;">
+            <div class="product-detail__hero">
+              <img src="img/Oud313.png" alt="Oud 313" class="product-detail__img" loading="lazy">
+              <div>
+                <div class="product-detail__name">Oud 313</div>
+                <div class="product-detail__meta">
+                  <span class="tag">Vibe: Bold • Smoky • Luxurious</span>
+                  <span class="tag">Best For: Winter, evenings, formal wear</span>
+                  <span class="tag">Longevity: Very long-lasting</span>
+                </div>
+                <p>Oud 313 is a deep, rich, and powerful fragrance that celebrates the timeless elegance of oud. It opens with a warm woody intensity that immediately sets a bold tone.</p>
+              </div>
+            </div>
+            <div class="product-detail__body">
+              <p>The heart reveals smoky and slightly sweet nuances, adding complexity and depth. The base is strong, resinous, and long-lasting — perfect for those who appreciate traditional, luxurious scents.</p>
+              <div class="notes">
+                <div class="note-row"><div class="note-row__label">Top Notes</div><div>Woody Notes, Agarwood (Oud)</div></div>
+                <div class="note-row"><div class="note-row__label">Middle Notes</div><div>Sugar, Vanilla</div></div>
+                <div class="note-row"><div class="note-row__label">Base Notes</div><div>Oud, Amber, Musk</div></div>
+              </div>
+            </div>
+            <div class="product-detail__actions">
+              <button class="btn btn--gold" onclick="addToCart('OUD 313',2199,'img/Oud313.png')"><span>Add to Cart</span></button>
+              <button class="btn btn--ghost" onclick="window.scrollTo({top:0, behavior:'smooth'})"><span>Back to Top</span></button>
+            </div>
+          </article>
+
+          <article class="product-detail" id="azure-elixir" data-reveal style="margin-top:28px;">
+            <div class="product-detail__hero">
+              <img src="img/Azure.jpeg" alt="Azure Elixir" class="product-detail__img" loading="lazy">
+              <div>
+                <div class="product-detail__name">Azure Elixir</div>
+                <div class="product-detail__meta">
+                  <span class="tag">Vibe: Fresh • Floral • Classy</span>
+                  <span class="tag">Best For: Daily wear, office, summer</span>
+                  <span class="tag">Longevity: Long-lasting</span>
+                </div>
+                <p>Azure Elixir is a refreshing and elegant fragrance that captures the beauty of modern femininity. It opens with a soft citrusy freshness that feels light and uplifting.</p>
+              </div>
+            </div>
+            <div class="product-detail__body">
+              <p>The heart blooms into delicate floral notes, creating a graceful and charming aura. As it dries down, warm and slightly musky undertones provide a clean yet sophisticated finish.</p>
+              <div class="notes">
+                <div class="note-row"><div class="note-row__label">Top Notes</div><div>Citrus, Peony</div></div>
+                <div class="note-row"><div class="note-row__label">Middle Notes</div><div>Rose, Osmanthus</div></div>
+                <div class="note-row"><div class="note-row__label">Base Notes</div><div>Sandalwood, Patchouli, Pink Pepper</div></div>
+              </div>
+            </div>
+            <div class="product-detail__actions">
+              <button class="btn btn--gold" onclick="addToCart('Azure Elixer',1799,'img/Azure.jpeg')"><span>Add to Cart</span></button>
+              <button class="btn btn--ghost" onclick="window.scrollTo({top:0, behavior:'smooth'})"><span>Back to Top</span></button>
+            </div>
+          </article>
+
+          <article class="product-detail" id="velvet-desire" data-reveal style="margin-top:28px;">
+            <div class="product-detail__hero">
+              <img src="img/Velvet.png" alt="Velvet Desire" class="product-detail__img" loading="lazy">
+              <div>
+                <div class="product-detail__name">Velvet Desire</div>
+                <div class="product-detail__meta">
+                  <span class="tag">Vibe: Sweet • Luxurious • Addictive</span>
+                  <span class="tag">Best For: Daily wear, events, all seasons</span>
+                  <span class="tag">Longevity: Very long-lasting</span>
+                </div>
+                <p>Velvet Desire is a luxurious blend of sweetness and elegance, designed for those who love to make a soft yet unforgettable statement. It opens with a vibrant burst of fruity freshness that feels rich and addictive.</p>
+              </div>
+            </div>
+            <div class="product-detail__body">
+              <p>As it develops, the fragrance reveals a smooth and velvety heart, resting on a warm, musky base that feels sensual and comforting. A perfect choice for both men and women who love a premium, long-lasting scent.</p>
+              <div class="notes">
+                <div class="note-row"><div class="note-row__label">Top Notes</div><div>Orange, Lemon, Bergamot</div></div>
+                <div class="note-row"><div class="note-row__label">Middle Notes</div><div>Mixed Fruits</div></div>
+                <div class="note-row"><div class="note-row__label">Base Notes</div><div>White Musk, Amber, Vanilla</div></div>
+              </div>
+            </div>
+            <div class="product-detail__actions">
+              <button class="btn btn--gold" onclick="addToCart('Velvet Desire',1999,'img/Velvet.jpeg')"><span>Add to Cart</span></button>
+              <button class="btn btn--ghost" onclick="window.scrollTo({top:0, behavior:'smooth'})"><span>Back to Top</span></button>
+            </div>
+          </article>
+
+          <article class="product-detail" id="midnight-alpha" data-reveal style="margin-top:28px;">
+            <div class="product-detail__hero">
+              <img src="img/Midnight.png" alt="Midnight Alpha" class="product-detail__img" loading="lazy">
+              <div>
+                <div class="product-detail__name">Midnight Alpha</div>
+                <div class="product-detail__meta">
+                  <span class="tag">Vibe: Dark • Masculine • Magnetic</span>
+                  <span class="tag">Best For: Night wear, parties, dates</span>
+                  <span class="tag">Longevity: Long-lasting</span>
+                </div>
+                <p>Midnight Alpha is a bold expression of confidence and mystery — crafted for the man who owns the night. This fragrance opens with an energetic burst of freshness and spice, instantly commanding attention.</p>
+              </div>
+            </div>
+            <div class="product-detail__body">
+              <p>At its heart, warm and slightly sweet notes add depth and masculinity, while the base settles into a powerful woody and musky trail that lingers for hours. Perfect for nights where you want to stand out and leave a lasting impression.</p>
+              <div class="notes">
+                <div class="note-row"><div class="note-row__label">Top Notes</div><div>Lemon, Ginger</div></div>
+                <div class="note-row"><div class="note-row__label">Middle Notes</div><div>Cardamom, Juniper</div></div>
+                <div class="note-row"><div class="note-row__label">Base Notes</div><div>Tonka Bean, Amberwood</div></div>
+              </div>
+            </div>
+            <div class="product-detail__actions">
+              <button class="btn btn--gold" onclick="addToCart('Midnight Alpha',1899,'img/Midnight.png')"><span>Add to Cart</span></button>
+              <button class="btn btn--ghost" onclick="window.scrollTo({top:0, behavior:'smooth'})"><span>Back to Top</span></button>
+            </div>
+          </article>
+
+          <article class="product-detail" id="tester-set" data-reveal style="margin-top:28px;">
+            <div class="product-detail__hero">
+              <img src="img/testers.png" alt="Tester Set" class="product-detail__img" loading="lazy">
+              <div>
+                <div class="product-detail__name">Tester Set</div>
+                <div class="product-detail__meta">
+                  <span class="tag">Curated Variety</span>
+                  <span class="tag">Premium Mini Bottles</span>
+                  <span class="tag">Gift-Ready</span>
+                </div>
+                <p>Experience luxury in every drop with the Amare Tester Set, a curated collection of premium fragrances designed for those who appreciate elegance and variety.</p>
+              </div>
+            </div>
+            <div class="product-detail__body">
+              <p>This beautifully presented set includes multiple mini perfume bottles, allowing you to explore different captivating scents before choosing your favorite.</p>
+              <p>Each fragrance is crafted with high-quality ingredients, offering long-lasting and unique aromas suitable for every mood and occasion—whether it’s a casual day out or a special evening event.</p>
+              <p>The sleek and stylish packaging also makes it a perfect gift for loved ones, combining sophistication with practicality.</p>
+            </div>
+            <div class="product-detail__actions">
+              <button class="btn btn--gold" onclick="addToCart('5 Testers',1499,'img/testers.png')"><span>Add to Cart</span></button>
+              <button class="btn btn--ghost" onclick="window.scrollTo({top:0, behavior:'smooth'})"><span>Back to Top</span></button>
+            </div>
+          </article>
+        </div>
+
+        <aside class="product-nav" data-reveal>
+          <div class="product-nav__card">
+            <div class="product-nav__title">Jump To</div>
+            <nav>
+              <a href="#oud-313-noir"><span>Oud 313 Noir</span><span class="product-nav__pill">Oud</span></a>
+              <a href="#oud-313"><span>Oud 313</span><span class="product-nav__pill">Oud</span></a>
+              <a href="#azure-elixir"><span>Azure Elixir</span><span class="product-nav__pill">Fresh</span></a>
+              <a href="#velvet-desire"><span>Velvet Desire</span><span class="product-nav__pill">Sweet</span></a>
+              <a href="#midnight-alpha"><span>Midnight Alpha</span><span class="product-nav__pill">Night</span></a>
+              <a href="#tester-set"><span>Tester Set</span><span class="product-nav__pill">Set</span></a>
+            </nav>
+          </div>
+        </aside>
+
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-brand__name">Am<span>a</span>re</div>
+          <p>Your destination for premium fragrances. We believe in quality, authenticity, and the art of scent.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Navigate</h4>
+          <a href="index.html">Home</a>
+          <a href="about.html">About</a>
+          <a href="malefemale.html">Collection</a>
+          <a href="attar.html">Attar</a>
+          <a href="feedback.html">Feedback</a>
+        </div>
+        <div class="footer-col">
+          <h4>Customer</h4>
+          <a href="#">Shipping Policy</a>
+          <a href="#">Return Policy</a>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <p class="footer-contact"><i class="fas fa-map-marker-alt"></i>Karachi, Pakistan</p>
+          <p class="footer-contact"><i class="fas fa-phone"></i>+92 331 3077774</p>
+          <p class="footer-contact"><i class="fas fa-envelope"></i>info@amare.pk</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2024 Amare Perfume. All rights reserved.</span>
+        <span>Crafted with intention.</span>
+      </div>
+    </div>
+  </footer>
+
+  <div class="cart-sidebar" id="cart-sidebar">
+    <div class="cart-header">
+      <h3>Your Cart</h3>
+      <button class="cart-close" onclick="toggleCart()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="cart-body" id="cart-items-container"></div>
+    <div class="cart-footer">
+      <input type="text" id="cust-name" class="cart-input" placeholder="Your Name" required>
+      <input type="text" id="cust-addr" class="cart-input" placeholder="Delivery Address" required>
+      <div class="cart-total-row">
+        <span class="total-label">Total</span>
+        <span class="total-amount" id="cart-total">Rs 0</span>
+      </div>
+      <button class="btn btn--whatsapp" onclick="orderAll()">
+        <i class="fab fa-whatsapp"></i> <span>Order via WhatsApp</span>
+      </button>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
