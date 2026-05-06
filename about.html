@@ -4,217 +4,126 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About — Amare Perfume</title>
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
-  <style>
-    .cursor-dot  { width:8px; height:8px; background:var(--gold); border-radius:50%; position:fixed; pointer-events:none; z-index:99999; transform:translate(-50%,-50%); transition:width .2s,height .2s; }
-    .cursor-ring { width:36px; height:36px; border:1px solid rgba(201,168,76,.45); border-radius:50%; position:fixed; pointer-events:none; z-index:99998; transform:translate(-50%,-50%); transition:width .22s,height .22s,border-color .22s; }
-    .page-transition { position:fixed; inset:0; background:var(--black); z-index:9999; transform:scaleY(0); transform-origin:bottom; transition:transform .5s cubic-bezier(.25,.46,.45,.94); }
-    .page-transition.entering { transform:scaleY(1); transform-origin:bottom; }
-    .page-transition.leaving  { transform:scaleY(0); transform-origin:top; }
-  </style>
 </head>
+
 <body>
 
-  <div class="page-transition" id="page-transition"></div>
-  <div class="overlay" id="overlay" onclick="toggleCart()"></div>
+<!-- NAVBAR -->
+<nav class="navbar">
+  <a href="index.html" class="navbar__logo">
+    <img src="img/logo2.png" alt="Amare">
+  </a>
 
-  <!-- NAVBAR -->
-  <nav class="navbar" id="navbar">
-    <a href="index.html" class="navbar__logo" aria-label="Amare Home">
-      <img src="img/logo2.png" alt="Amare" class="navbar__logo-img">
-    </a>
-    <ul class="navbar__links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="malefemale.html">Collection</a></li>
-      <li><a href="attar.html">Attar</a></li>
-      <li><a href="feedback.html">Feedback</a></li>
-    </ul>
-    <div class="navbar__right">
-      <button class="navbar__cart" onclick="toggleCart()">
-        <i class="fas fa-shopping-bag"></i>
-        <span class="cart-count" id="header-cart-count">0</span>
-      </button>
-      <button class="navbar__hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  <ul class="navbar__links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="malefemale.html">Collection</a></li>
+    <li><a href="attar.html">Attar</a></li>
+    <li><a href="feedback.html">Feedback</a></li>
+  </ul>
+
+  <button class="navbar__cart" onclick="toggleCart()">
+    <i class="fas fa-shopping-bag"></i>
+    <span id="header-cart-count">0</span>
+  </button>
+</nav>
+
+<!-- BANNER -->
+<section class="page-banner">
+  <h1>Our Story</h1>
+  <p>Dedicated to crafting memories through scent</p>
+</section>
+
+<!-- SIGNATURE -->
+<section class="signature-section">
+  <div class="signature-grid">
+
+    <div class="sig-img-box">
+      <img src="img/Midnight.png" alt="Midnight Alpha">
     </div>
-  </nav>
 
-  <nav class="mobile-nav" id="mobile-nav">
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="malefemale.html">Collection</a>
-    <a href="attar.html">Attar</a>
-    <a href="feedback.html">Feedback</a>
-  </nav>
+    <div class="sig-content">
+      <span class="sig-badge">Signature Edition</span>
+      <h2>Midnight Alpha</h2>
 
-  <!-- PAGE BANNER -->
-  <section class="page-banner">
-    <div class="breadcrumb">
-      <a href="index.html">Home</a>
-      <i class="fas fa-chevron-right"></i>
-      <span>About</span>
+      <p><strong>Midnight Alpha</strong> is not just a fragrance — it is an attitude.</p>
+
+      <ul class="highlight-list">
+        <li><i class="fas fa-clock"></i> 6–7 Hours</li>
+        <li><i class="fas fa-gem"></i> Premium Oils</li>
+        <li><i class="fas fa-wind"></i> Strong Projection</li>
+        <li><i class="fas fa-check-circle"></i> Night Wear</li>
+      </ul>
     </div>
-    <h1>Our Story</h1>
-    <p>Dedicated to crafting memories through scent</p>
-  </section>
 
-  <!-- SIGNATURE SECTION -->
-  <section class="signature-section">
-    <div class="container">
-      <div class="signature-grid">
-        <!-- Image -->
-        <div class="sig-img-box" data-reveal="left">
-          <img src="img/Midnight.png" alt="Midnight Alpha — Signature">
-        </div>
-        <!-- Text -->
-        <div class="sig-content" data-reveal="right">
-          <span class="sig-badge">Signature Edition</span>
-          <h2>Midnight Alpha</h2>
-          <p>
-            <strong>Midnight Alpha</strong> is not just a fragrance — it is an attitude. Designed for the modern man who commands attention without demanding it, this scent captures the very essence of the night.
-          </p>
-          <p>
-            Crafted with the finest ingredients sourced from international markets, it offers a rich blend of smoky Oud and spicy notes that settle into a warm amber finish. The perfect companion for evening wear and special occasions.
-          </p>
-          <ul class="highlight-list">
-            <li><i class="fas fa-clock"></i> Long Lasting: <strong>6–7 Hours</strong> Projection</li>
-            <li><i class="fas fa-gem"></i> Premium Quality Essential Oils</li>
-            <li><i class="fas fa-wind"></i> Strong Sillage &amp; Projection</li>
-            <li><i class="fas fa-check-circle"></i> Ideal for Night Events</li>
-          </ul>
-          <a href="malefemale.html" class="btn btn--dark" style="margin-top:36px;">
-            <span>Shop the Collection</span>
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="signature-section" style="padding-top:0">
-    <div class="container">
-      <div class="section-header" data-reveal>
-        <div class="section-label">The Story</div>
-        <h2>The Story of <em>Amare Perfumes</em></h2>
-        <div class="section-divider"></div>
-      </div>
-
-      <div data-reveal>
-        <p>Amare Perfumes was born from a simple belief — that fragrance is not just something you wear, but something you become.</p>
-        <p>In a world of fleeting impressions, we set out to create scents that linger — not only in the air, but in memory. Each composition is carefully curated, blending rich tradition with modern artistry to create fragrances that feel personal, powerful, and timeless.</p>
-        <p>Inspired by the world’s most iconic scent profiles, Amare reinterprets luxury in a way that is accessible yet uncompromising in quality. Every bottle carries depth, character, and emotion — designed for individuals who don’t follow trends, but define them.</p>
-        <p>This is not mass fragrance.<br>This is identity in its most refined form.</p>
-        <p>Amare Perfumes — Where scent becomes legacy.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- INFO SECTION -->
-  <section class="info-section">
-    <div class="container">
-      <div class="section-header section-header--white" data-reveal>
-        <div class="section-label">What We Offer</div>
-        <h2>Our <em>Collection</em></h2>
-        <div class="section-divider"></div>
-        <p>At Amare Perfume, we believe a fragrance is an invisible part of your personal style — designed for every mood, occasion, and personality.</p>
-      </div>
-
-      <div class="info-grid">
-        <div class="info-block" data-reveal data-delay="0">
-          <h4>Our Perfumes</h4>
-          <p>Our perfume collection ranges from fresh aquatic notes perfect for the daytime to rich, woody aromas suited for the evening. We ensure high concentration levels in every bottle, guaranteeing your scent stays with you all day. Each fragrance is a blend of top, heart, and base notes that evolve beautifully over time.</p>
-        </div>
-        <div class="info-block" data-reveal data-delay="200">
-          <h4>Pure Attars</h4>
-          <p>For those who prefer traditional luxury, our attars (ittars) are alcohol-free, pure oil-based fragrances derived from natural sources. These highly concentrated scents are gentle on the skin and offer a profound depth that synthetic perfumes cannot match. Just a single drop is enough to leave a lasting impression for hours.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FEATURES -->
-  <section class="features-section">
-    <div class="container">
-      <div class="section-header section-header--white" data-reveal>
-        <div class="section-label">The Amare Promise</div>
-        <h2>Built On <em>Integrity</em></h2>
-        <div class="section-divider"></div>
-      </div>
-      <div class="features-grid">
-        <div class="feature-box" data-reveal data-delay="0">
-          <div class="feature-box__icon"><i class="fas fa-gem"></i></div>
-          <h4>Premium Quality</h4>
-          <p>We source the finest ingredients globally to ensure every drop is pure luxury.</p>
-        </div>
-        <div class="feature-box" data-reveal data-delay="200">
-          <div class="feature-box__icon"><i class="fas fa-truck"></i></div>
-          <h4>Fast Delivery</h4>
-          <p>Get your favorite fragrances delivered within 2–3 business days.</p>
-        </div>
-        <div class="feature-box" data-reveal data-delay="400">
-          <div class="feature-box__icon"><i class="fas fa-shield-alt"></i></div>
-          <h4>Safe Packaging</h4>
-          <p>Packed with utmost care to ensure your fragrance arrives perfectly.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="site-footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <div class="footer-brand__name">Am<span>a</span>re</div>
-          <p>Your destination for premium fragrances. We believe in quality, authenticity, and the art of scent.</p>
-        </div>
-        <div class="footer-col">
-          <h4>Navigate</h4>
-          <a href="index.html">Home</a>
-          <a href="about.html">About</a>
-          <a href="malefemale.html">Collection</a>
-          <a href="attar.html">Attar</a>
-          <a href="feedback.html">Feedback</a>
-        </div>
-        <div class="footer-col">
-          <h4>Customer</h4>
-          <a href="#">Shipping Policy</a>
-          <a href="#">Return Policy</a>
-        </div>
-        <div class="footer-col">
-          <h4>Contact</h4>
-          <p class="footer-contact"><i class="fas fa-map-marker-alt"></i>Karachi, Pakistan</p>
-          <p class="footer-contact"><i class="fas fa-phone"></i>+92 331 3077774</p>
-          <p class="footer-contact"><i class="fas fa-envelope"></i>info@amare.pk</p>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <span>&copy; 2024 Amare Perfume. All rights reserved.</span>
-        <span>Crafted with intention.</span>
-      </div>
-    </div>
-  </footer>
-
-  <!-- CART -->
-  <div class="cart-sidebar" id="cart-sidebar">
-    <div class="cart-header">
-      <h3>Your Cart</h3>
-      <button class="cart-close" onclick="toggleCart()"><i class="fas fa-times"></i></button>
-    </div>
-    <div class="cart-body" id="cart-items-container"></div>
-    <div class="cart-footer">
-      <input type="text" id="cust-name" class="cart-input" placeholder="Your Name" required>
-      <input type="text" id="cust-addr" class="cart-input" placeholder="Delivery Address" required>
-      <div class="cart-total-row">
-        <span class="total-label">Total</span>
-        <span class="total-amount" id="cart-total">Rs 0</span>
-      </div>
-      <button class="btn btn--whatsapp" onclick="orderAll()">
-        <i class="fab fa-whatsapp"></i> <span>Order via WhatsApp</span>
-      </button>
-    </div>
   </div>
+</section>
 
-  <script src="js/main.js"></script>
+<!-- STORY -->
+<section class="info-section">
+  <div class="info-container">
+
+    <h2>Our Story</h2>
+
+    <p>
+      Amare Perfumes was built on one idea — fragrance is identity.
+    </p>
+
+    <p>
+      We create scents that don’t just smell good, but leave a lasting memory.
+    </p>
+
+    <div class="info-block">
+      <h4>Our Perfumes</h4>
+      <p>
+        High-quality blends designed for long-lasting performance.
+      </p>
+    </div>
+
+    <div class="info-block">
+      <h4>Pure Attars</h4>
+      <p>
+        Alcohol-free oils with deep, rich traditional aroma.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <p>© 2024 Amare Perfume</p>
+</footer>
+
+<!-- CART -->
+<div class="cart-sidebar" id="cart-sidebar">
+
+  <input type="text" id="cust-name" placeholder="Your Name">
+  <input type="text" id="cust-addr" placeholder="Address">
+
+  <button onclick="orderAll()">Order via WhatsApp</button>
+
+</div>
+
+<script src="js/main.js"></script>
+
+<script>
+function orderAll() {
+  const name = document.getElementById("cust-name").value.trim();
+  const addr = document.getElementById("cust-addr").value.trim();
+
+  if (!name || !addr) {
+    alert("Enter details!");
+    return;
+  }
+
+  let msg = `Name: ${name}%0AAddress: ${addr}`;
+  window.open(`https://wa.me/923313077774?text=${msg}`, '_blank');
+}
+</script>
+
 </body>
 </html>
