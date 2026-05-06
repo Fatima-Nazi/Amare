@@ -3,212 +3,144 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Feedback - Amare Perfume</title>
-
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <title>Feedback — Amare Perfume</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-
+  <link rel="stylesheet" href="css/style.css">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    body {
-      font-family: 'Poppins', sans-serif;
-      background-color: #f9f9f9;
-      color: #333;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .header {
-      background: #000;
-      box-shadow: 0 2px 10px rgba(255, 255, 255, 0.1);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-
-    .header-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 15px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .logo img { height: 55px; }
-
-    .nav-links a {
-      text-decoration: none;
-      color: #fff;
-      margin: 0 15px;
-      font-weight: 500;
-      font-size: 14px;
-    }
-
-    .nav-links a:hover { color: #d4a373; }
-
-    .cart-icon-btn {
-      background: none;
-      border: none;
-      font-size: 20px;
-      cursor: pointer;
-      position: relative;
-      color: #fff;
-    }
-
-    .cart-count-badge {
-      position: absolute;
-      top: -5px;
-      right: -10px;
-      background: #d4a373;
-      color: #000;
-      font-size: 10px;
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .main-content {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 60px 20px;
-    }
-
-    .feedback-card {
-      background: #fff;
-      max-width: 720px;
-      padding: 50px;
-      border-radius: 10px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-      text-align: center;
-      border-top: 5px solid #000;
-    }
-
-    .feedback-icon {
-      width: 80px;
-      height: 80px;
-      background: #f0f0f0;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 20px;
-      font-size: 35px;
-    }
-
-    .form-control {
-      margin-bottom: 20px;
-      padding: 15px;
-    }
-
-    .btn-submit {
-      width: 100%;
-      background: #000;
-      color: #fff;
-      padding: 15px;
-      border: none;
-    }
-
-    .star-rating {
-      display: flex;
-      flex-direction: row-reverse;
-      justify-content: center;
-      gap: 10px;
-      margin: 15px 0;
-    }
-
-    .star-rating label {
-      font-size: 30px;
-      cursor: pointer;
-    }
-
-    .star-rating input { display: none; }
-
-    .star-rating input:checked~label,
-    .star-rating label:hover,
-    .star-rating label:hover~label {
-      color: #ffc107;
-    }
-
-    .footer {
-      background: #000;
-      color: #888;
-      text-align: center;
-      padding: 20px;
-    }
+    .cursor-dot  { width:8px; height:8px; background:var(--gold); border-radius:50%; position:fixed; pointer-events:none; z-index:99999; transform:translate(-50%,-50%); transition:width .2s,height .2s; }
+    .cursor-ring { width:36px; height:36px; border:1px solid rgba(201,168,76,.45); border-radius:50%; position:fixed; pointer-events:none; z-index:99998; transform:translate(-50%,-50%); transition:width .22s,height .22s,border-color .22s; }
+    .page-transition { position:fixed; inset:0; background:var(--black); z-index:9999; transform:scaleY(0); transform-origin:bottom; transition:transform .5s cubic-bezier(.25,.46,.45,.94); }
+    .page-transition.entering { transform:scaleY(1); transform-origin:bottom; }
+    .page-transition.leaving  { transform:scaleY(0); transform-origin:top; }
   </style>
 </head>
-
 <body>
 
-<div class="main-content">
-  <div class="feedback-card">
+  <div class="page-transition" id="page-transition"></div>
+  <div class="overlay" id="overlay" onclick="toggleCart()"></div>
 
-    <h2>Send Us Feedback</h2>
-
-    <form onsubmit="sendFeedback(event)">
-
-      <div class="star-rating">
-        <input type="radio" id="5-stars" name="rating" value="5" required>
-        <label for="5-stars" class="fas fa-star"></label>
-
-        <input type="radio" id="4-stars" name="rating" value="4">
-        <label for="4-stars" class="fas fa-star"></label>
-
-        <input type="radio" id="3-stars" name="rating" value="3">
-        <label for="3-stars" class="fas fa-star"></label>
-
-        <input type="radio" id="2-stars" name="rating" value="2">
-        <label for="2-stars" class="fas fa-star"></label>
-
-        <input type="radio" id="1-star" name="rating" value="1">
-        <label for="1-star" class="fas fa-star"></label>
-      </div>
-
-      <input type="text" id="fb-name" class="form-control" placeholder="Your Name" required>
-      <input type="email" id="fb-email" class="form-control" placeholder="Your Email">
-
-      <textarea id="fb-msg" class="form-control" rows="5" placeholder="Message" required></textarea>
-
-      <button type="submit" class="btn-submit">
-        <i class="fab fa-whatsapp"></i> Send via WhatsApp
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <a href="index.html" class="navbar__logo" aria-label="Amare Home">
+      <img src="img/logo2.png" alt="Amare" class="navbar__logo-img">
+    </a>
+    <ul class="navbar__links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="malefemale.html">Collection</a></li>
+      <li><a href="attar.html">Attar</a></li>
+      <li><a href="feedback.html">Feedback</a></li>
+    </ul>
+    <div class="navbar__right">
+      <button class="navbar__cart" onclick="toggleCart()">
+        <i class="fas fa-shopping-bag"></i>
+        <span class="cart-count" id="header-cart-count">0</span>
       </button>
+      <button class="navbar__hamburger" id="hamburger"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
 
-    </form>
+  <nav class="mobile-nav" id="mobile-nav">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="malefemale.html">Collection</a>
+    <a href="attar.html">Attar</a>
+    <a href="feedback.html">Feedback</a>
+  </nav>
+
+  <!-- PAGE BANNER -->
+  <section class="page-banner">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a>
+      <i class="fas fa-chevron-right"></i>
+      <span>Feedback</span>
+    </div>
+    <h1>Share Your Thoughts</h1>
+    <p>Your voice helps us create better experiences</p>
+  </section>
+
+  <!-- FEEDBACK FORM -->
+  <section class="feedback-section">
+    <div class="feedback-card" data-reveal>
+      <div class="feedback-icon">
+        <i class="fas fa-comment-dots"></i>
+      </div>
+      <h2>Send Us Feedback</h2>
+      <p>We would love to hear your thoughts, suggestions, or concerns about Amare.</p>
+
+      <form onsubmit="sendFeedback(event)" novalidate>
+        <div class="form-group">
+          <input type="text" id="fb-name" class="form-field" placeholder="Your Name *" required>
+        </div>
+        <div class="form-group">
+          <input type="email" id="fb-email" class="form-field" placeholder="Email Address (optional)">
+        </div>
+        <div class="form-group">
+          <textarea id="fb-msg" class="form-field" placeholder="Write your feedback, suggestions, or concerns here..." required></textarea>
+        </div>
+        <button type="submit" class="btn btn--whatsapp">
+          <i class="fab fa-whatsapp"></i>
+          <span>Send via WhatsApp</span>
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-brand__name">Am<span>a</span>re</div>
+          <p>Your destination for premium fragrances. We believe in quality, authenticity, and the art of scent.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Navigate</h4>
+          <a href="index.html">Home</a>
+          <a href="about.html">About</a>
+          <a href="malefemale.html">Collection</a>
+          <a href="attar.html">Attar</a>
+          <a href="feedback.html">Feedback</a>
+        </div>
+        <div class="footer-col">
+          <h4>Customer</h4>
+          <a href="#">Shipping Policy</a>
+          <a href="#">Return Policy</a>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <p class="footer-contact"><i class="fas fa-map-marker-alt"></i>Karachi, Pakistan</p>
+          <p class="footer-contact"><i class="fas fa-phone"></i>+92 331 3077774</p>
+          <p class="footer-contact"><i class="fas fa-envelope"></i>info@amare.pk</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2024 Amare Perfume. All rights reserved.</span>
+        <span>Crafted with intention.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- CART -->
+  <div class="cart-sidebar" id="cart-sidebar">
+    <div class="cart-header">
+      <h3>Your Cart</h3>
+      <button class="cart-close" onclick="toggleCart()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="cart-body" id="cart-items-container"></div>
+    <div class="cart-footer">
+      <input type="text" id="cust-name" class="cart-input" placeholder="Your Name" required>
+      <input type="text" id="cust-addr" class="cart-input" placeholder="Delivery Address" required>
+      <div class="cart-total-row">
+        <span class="total-label">Total</span>
+        <span class="total-amount" id="cart-total">Rs 0</span>
+      </div>
+      <button class="btn btn--whatsapp" onclick="orderAll()">
+        <i class="fab fa-whatsapp"></i> <span>Order via WhatsApp</span>
+      </button>
+    </div>
   </div>
-</div>
 
-<script>
-function sendFeedback(e) {
-  e.preventDefault();
-
-  const name = document.getElementById('fb-name').value.trim();
-  const email = document.getElementById('fb-email').value.trim();
-  const msg = document.getElementById('fb-msg').value.trim();
-
-  const rating = document.querySelector('input[name="rating"]:checked');
-  const ratingValue = rating ? rating.value : "Not Rated";
-
-  let text = `*Website Feedback* 📝
---------------------------
-*Name:* ${name}
-${email ? `*Email:* ${email}` : ""}
-*Rating:* ${ratingValue} Stars ⭐
---------------------------
-*Message:*
-${msg}`;
-
-  window.open(`https://wa.me/923313077774?text=${encodeURIComponent(text)}`, '_blank');
-}
-</script>
-
+  <script src="js/main.js"></script>
 </body>
 </html>
